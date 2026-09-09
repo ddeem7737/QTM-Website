@@ -1,0 +1,16 @@
+{
+  "name": "qtm-group",
+  "main": "worker/index.ts",
+  "compatibility_date": "2025-09-08",
+  "env": {
+    "production": {
+      "name": "qtm-group-prod"
+    }
+  }
+,
+  "assets": { "directory": "dist/client", "not_found_handling": "none", "binding": "ASSETS" }
+,
+  "cache": { "enabled": true }
+,
+  "version_metadata": { "binding": "CF_VERSION_METADATA" }
+}

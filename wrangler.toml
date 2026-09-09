@@ -1,6 +1,0 @@
-name = "qtm-group"
-main = "worker/index.ts"
-compatibility_date = "2025-09-08"
-
-[env.production]
-name = "qtm-group-prod"
