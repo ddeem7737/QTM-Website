@@ -18,15 +18,12 @@ if [[ ! -x "${vinext}" ]]; then
   exit 69
 fi
 
-echo "Creating stub worker file for Wrangler validation..."
+# The Cloudflare Vite plugin resolves wrangler.toml's `main` field to an
+# existing file while it resolves config, before vinext writes the real
+# Worker entry point. This placeholder only needs to exist on disk.
 mkdir -p "${SITES_PROJECT_ROOT}/dist"
 cat > "${SITES_PROJECT_ROOT}/dist/worker.js" << 'STUB'
-// Stub file - will be replaced during build
-export default {
-  async fetch() {
-    return new Response('Building...');
-  }
-};
+export default { async fetch() { return new Response("Building..."); } };
 STUB
 
 echo "Running bounded vinext build..."
@@ -37,6 +34,3 @@ timeout \
   "${vinext}" build
 
 "${script_dir}/validate-artifact.sh"
-
-echo "Creating Cloudflare Worker wrapper..."
-node "${script_dir}/create-worker-wrapper.js"

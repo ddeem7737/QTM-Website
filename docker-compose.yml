@@ -7,9 +7,10 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    env_file:
+      - .env.production
     environment:
       - NODE_ENV=production
-      - RESEND_API_KEY=${RESEND_API_KEY}
     volumes:
       - ./public:/app/public:ro
     networks:
