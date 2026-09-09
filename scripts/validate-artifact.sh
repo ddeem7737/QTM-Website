@@ -29,8 +29,13 @@ JSON.parse(await readFile(hostingPath, "utf8"));
 const workerUrl = pathToFileURL(workerPath);
 workerUrl.searchParams.set("sites-validation", `${process.pid}-${Date.now()}`);
 const worker = await import(workerUrl.href);
-if (!worker.default || typeof worker.default.fetch !== "function") {
-  throw new Error("dist/server/index.js must have an ESM default export with fetch(request, env, ctx)");
+
+// Check for Worker fetch handler or vinext app handler
+const hasWorkerFetch = worker.default && typeof worker.default.fetch === "function";
+const hasVinextHandler = typeof worker.default === "object" || typeof worker.default === "function";
+
+if (!hasWorkerFetch && !hasVinextHandler) {
+  throw new Error("dist/server/index.js must have an ESM default export with fetch(request, env, ctx) or vinext handler");
 }
 NODE
 

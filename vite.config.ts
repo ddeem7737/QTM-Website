@@ -43,6 +43,9 @@ export default defineConfig(async () => {
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
   return {
+    ssr: {
+      external: ["resend"],
+    },
     server: {
       host: "0.0.0.0",
       allowedHosts: ["terminal.local"],
@@ -54,7 +57,6 @@ export default defineConfig(async () => {
       vinext(),
       sites(),
       cloudflare({
-        viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
         inspectorPort: false,
         config: localBindingConfig,
       }),
