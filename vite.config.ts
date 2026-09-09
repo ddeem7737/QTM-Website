@@ -42,6 +42,41 @@ export default defineConfig(async () => {
   // Wrangler snapshots its log path while the Cloudflare plugin is imported.
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
+  // Plugin to wrap server output with Worker fetch handler
+  const wrapperPlugin = {
+    name: "worker-wrapper",
+    apply: "build",
+    async writeBundle() {
+      const fs = await import("node:fs/promises");
+      const path = await import("node:path");
+
+      const serverPath = path.join(process.cwd(), "dist/server/index.js");
+      const workerPath = path.join(process.cwd(), "dist/worker.js");
+
+      try {
+        // Copy server as worker if it doesn't have fetch handler
+        const content = await fs.readFile(serverPath, "utf8");
+        if (!content.includes("fetch")) {
+          const wrapper = `
+import app from './server/index.js';
+
+export default {
+  async fetch(request, env, ctx) {
+    if (typeof app === 'function') {
+      return await app(request, env, ctx);
+    }
+    return new Response('App not available', { status: 500 });
+  }
+};
+`;
+          await fs.writeFile(workerPath, wrapper);
+        }
+      } catch (error) {
+        console.error("Failed to create worker wrapper:", error);
+      }
+    },
+  };
+
   return {
     ssr: {
       external: ["resend"],
@@ -56,6 +91,7 @@ export default defineConfig(async () => {
     plugins: [
       vinext(),
       sites(),
+      wrapperPlugin,
       cloudflare({
         inspectorPort: false,
         config: localBindingConfig,

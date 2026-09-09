@@ -18,6 +18,17 @@ if [[ ! -x "${vinext}" ]]; then
   exit 69
 fi
 
+echo "Creating stub worker file for Wrangler validation..."
+mkdir -p "${SITES_PROJECT_ROOT}/dist"
+cat > "${SITES_PROJECT_ROOT}/dist/worker.js" << 'STUB'
+// Stub file - will be replaced during build
+export default {
+  async fetch() {
+    return new Response('Building...');
+  }
+};
+STUB
+
 echo "Running bounded vinext build..."
 timeout \
   --signal=TERM \
@@ -26,3 +37,6 @@ timeout \
   "${vinext}" build
 
 "${script_dir}/validate-artifact.sh"
+
+echo "Creating Cloudflare Worker wrapper..."
+node "${script_dir}/create-worker-wrapper.js"
