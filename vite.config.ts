@@ -42,9 +42,23 @@ export default defineConfig(async () => {
   // Wrangler snapshots its log path while the Cloudflare plugin is imported.
   const { cloudflare } = await import("@cloudflare/vite-plugin");
 
+  // `vinext build` (used by `npm run build` for the Node/Hostinger target,
+  // which `vinext start` then serves) and `vinext deploy` (Cloudflare
+  // Workers) share this one config, but need incompatible settings: the
+  // App Router's RSC code needs the "react-server" export condition when
+  // bundled for Workers, but forcing that condition breaks the plain
+  // Node output `vinext start` relies on. Scope it to `vinext deploy` only.
+  const isVinextDeploy = process.argv.at(-1) === "deploy";
+
   return {
     ssr: {
-      external: ["resend"],
+      // @svg-maps/world is a CommonJS-only package (no "type": "module")
+      // used exclusively by the "use client" QtmSite component. Bundling
+      // it into the server/RSC output makes Vite's CJS interop wrapper
+      // collide with vinext's own default export in the Cloudflare Worker
+      // build stage ("Duplicated export 'default'"). Externalizing it
+      // keeps it out of the server bundle entirely, same as `resend`.
+      external: ["resend", "@svg-maps/world"],
     },
     server: {
       host: "0.0.0.0",
@@ -59,6 +73,9 @@ export default defineConfig(async () => {
       cloudflare({
         inspectorPort: false,
         config: localBindingConfig,
+        ...(isVinextDeploy
+          ? { viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] } }
+          : {}),
       }),
     ],
   };

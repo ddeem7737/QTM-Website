@@ -18,14 +18,6 @@ if [[ ! -x "${vinext}" ]]; then
   exit 69
 fi
 
-# The Cloudflare Vite plugin resolves wrangler.toml's `main` field to an
-# existing file while it resolves config, before vinext writes the real
-# Worker entry point. This placeholder only needs to exist on disk.
-mkdir -p "${SITES_PROJECT_ROOT}/dist"
-cat > "${SITES_PROJECT_ROOT}/dist/worker.js" << 'STUB'
-export default { async fetch() { return new Response("Building..."); } };
-STUB
-
 echo "Running bounded vinext build..."
 timeout \
   --signal=TERM \

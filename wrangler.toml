@@ -1,5 +1,5 @@
 name = "qtm-group"
-main = "dist/worker.js"
+main = "worker/index.ts"
 compatibility_date = "2025-09-08"
 
 [env.production]
