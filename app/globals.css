@@ -2210,11 +2210,11 @@
   [data-openend-reveal]{opacity:1!important;transform:none!important;transition:none!important}
 }
 @media(max-width:650px){
-  .openend-hero-copy{min-height:520px;padding:42px 22px}
+  .openend-hero-copy{min-height:auto;padding:42px 22px}
   .openend-hero .breadcrumbs{margin-bottom:38px}
   .openend-hero h1{font-size:48px}
   .openend-hero-description p{font-size:15px}
-  .openend-hero-media{min-height:330px}
+  .openend-hero-media{min-height:280px}
   .openend-intro-grid{gap:34px}
   .openend-intro-image{min-height:320px;padding:24px}
   .openend-intro-image img{height:280px}
@@ -2396,9 +2396,9 @@
   }
   .openend-mobile-hero-media{
     display:block;
-    width:calc(100% + 44px);
+    width:100%;
     aspect-ratio:16/9;
-    margin:26px -22px 25px;
+    margin:20px 0 20px;
     overflow:hidden;
     border-top:1px solid rgba(255,255,255,.12);
     border-bottom:1px solid rgba(255,255,255,.12);
@@ -2527,10 +2527,8 @@ html{scroll-behavior:smooth;overflow-x:hidden}
 @keyframes timing-card-float{50%{translate:0 -12px}}
 @keyframes timing-chip-pulse{50%{background:#e81e23ad;border-color:#e81e23e6}}
 @media (width<=1100px){.timing-type-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (width<=900px){.timing-overview-hero-grid,.timing-overview-dark-grid{grid-template-columns:1fr}.timing-overview-media,.timing-overview-media img{min-height:420px}}
-@media (width<=620px){.timing-overview-hero{padding:58px 0 52px}.timing-overview-copy .breadcrumbs{margin-bottom:34px}.timing-overview-copy h1{font-size:58px}.timing-type-grid,.timing-support-list{grid-template-columns:1fr}.timing-type-card{grid-template-rows:210px 1fr}.timing-overview-media,.timing-overview-media img{min-height:310px}}
-@media (width<=900px){.timing-overview-hero{min-height:0}.timing-hero-stage{min-height:520px}.timing-hero-main{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);inset:8% 0 14%}.timing-floating-card{width:min(330px,52%)}}
-@media (width<=620px){.timing-overview-hero:before{font-size:132px;bottom:-.12em}.timing-hero-stage{min-height:420px}.timing-hero-main{inset:5% 0 19%}.timing-floating-card{grid-template-columns:84px 1fr;width:66%;min-height:96px;padding:10px}.timing-floating-card img{height:72px}.timing-floating-card span{font-size:13px}.timing-floating-card-red{top:0;right:0}.timing-floating-card-light{bottom:4%;left:0}.timing-hero-stat{width:118px;min-height:105px;padding:14px;bottom:0;right:0}.timing-hero-stat strong{font-size:45px}.timing-hero-stat span{font-size:8px}.timing-profile-pulse{max-width:185px;top:12px;left:12px}.timing-profile-pulse span{padding:7px 9px;font-size:9px}}
+@media (width<=900px){.timing-overview-hero-grid,.timing-overview-dark-grid{grid-template-columns:1fr}.timing-overview-media,.timing-overview-media img{min-height:420px}.timing-overview-hero{min-height:0}.timing-hero-stage{min-height:420px}.timing-hero-main{clip-path:polygon(0 0,100% 0,100% 100%,0 100%);inset:8% 0 14%}.timing-floating-card{width:min(330px,52%)}}
+@media (width<=620px){.timing-overview-hero{padding:58px 0 52px}.timing-overview-copy .breadcrumbs{margin-bottom:34px}.timing-overview-copy h1{font-size:58px}.timing-type-grid,.timing-support-list{grid-template-columns:1fr}.timing-type-card{grid-template-rows:210px 1fr}.timing-overview-media,.timing-overview-media img{min-height:280px}.timing-overview-hero:before{font-size:132px;bottom:-.12em}.timing-hero-stage{min-height:300px}.timing-hero-main{inset:5% 0 19%}.timing-floating-card{grid-template-columns:84px 1fr;width:66%;min-height:96px;padding:10px}.timing-floating-card img{height:72px}.timing-floating-card span{font-size:13px}.timing-floating-card-red{top:0;right:0}.timing-floating-card-light{bottom:4%;left:0}.timing-hero-stat{width:118px;min-height:105px;padding:14px;bottom:0;right:0}.timing-hero-stat strong{font-size:45px}.timing-hero-stat span{font-size:8px}.timing-profile-pulse{max-width:185px;top:12px;left:12px}.timing-profile-pulse span{padding:7px 9px;font-size:9px}}
 @media (prefers-reduced-motion:reduce){.timing-overview-hero:after,.timing-hero-rings,.timing-hero-rings span,.timing-hero-main img,.timing-floating-card,.timing-profile-pulse span{animation:none!important}[data-timing-reveal],[data-timing-reveal] .timing-type-card,[data-timing-reveal] .timing-support-list span,[data-timing-reveal] .profile-grid code{will-change:auto;opacity:1!important;transform:none!important}}
 .legal-copy{max-width:900px}
 .legal-copy h2{font:700 30px/1.15 var(--heading);letter-spacing:-.025em;margin-top:45px}
