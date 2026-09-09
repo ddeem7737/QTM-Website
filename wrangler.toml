@@ -1,5 +1,4 @@
 name = "qtm-group"
-type = "javascript"
 main = "dist/index.js"
 compatibility_date = "2025-09-08"
 
