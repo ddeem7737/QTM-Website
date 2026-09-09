@@ -2387,10 +2387,16 @@
   .openend-hero--brand-split .breadcrumbs{
     margin-bottom:24px;
     overflow-x:auto;
-    white-space:nowrap;
+    overflow-y:hidden;
+    white-space:normal;
     scrollbar-width:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px;
+    font-size:9px;
   }
   .openend-hero--brand-split .breadcrumbs::-webkit-scrollbar{display:none}
+  .openend-hero--brand-split .breadcrumbs span{flex-wrap:wrap}
   .openend-hero--brand-split h1{
     margin-bottom:0;
     font-size:clamp(37px,11vw,48px);
